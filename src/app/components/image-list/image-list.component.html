@@ -1,0 +1,39 @@
+
+
+<header >
+  <div id="imagee"></div>
+</header>
+<body id="wrapper">
+<!--<img src="">-->
+<h1>Fotogaleria </h1>
+<h2 class="header-end"><img [routerLink]="['/']" class="back" src="assets/icons/back.svg" alt="Italian Trulli"> {{this.category}}</h2>
+<div id="firstElement" class="categories">
+
+
+  <div *ngFor="let photo of this.photos" class="category">
+    <img (click)="showImage(photo.icon)" src="{{photo.icon}}" alt="Italian Trulli">
+  </div>
+
+  <div (click)="openAddFileDialog()" class="category">
+    <div class="center">
+      <img class="last" src="assets/icons/plusIcon.svg" alt="Italian Trulli">
+
+      <p class="name">Pridat fotku</p>
+    </div>
+  </div>
+
+</div>
+<footer style="color: gray">
+  webdesign.bart.sk
+</footer>
+</body>
+<div (click)="close()" onclick="this.style.display='none'" id="overlay" class="container">
+  <!-- Close the image -->
+  <span (click)="close()" onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+
+  <!-- Expanded image -->
+  <img id="expandedImg">
+
+  <!-- Image text -->
+  <div id="imgtext"></div>
+</div>

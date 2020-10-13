@@ -1,0 +1,27 @@
+
+<body>
+  <h1>Fotogaleria</h1>
+<h2 class="header-end">Katedogie</h2>
+<div id="firstMan" class="categories">
+  <div *ngFor="let gallery of galleries"  class="category">
+    <img (mouseenter)="onMouseMove($event)" (mouseleave)="onMouseLeave($event)" class="toto" routerLink="/gallery/{{gallery.label}}" src="{{gallery.icon}}" alt="Italian Trulli">
+    <div class="centrik">
+      <p class="name">{{gallery.label}}</p>
+
+    </div>
+  </div>
+
+  <div (click)="openAddFileDialog()" class="category">
+    <div class="center">
+    <img class="last" src="assets/icons/plusIcon.svg" alt="Italian Trulli">
+
+      <p class="name">Pridat kategoriu</p>
+    </div>
+  </div>
+
+</div>
+  <footer style="color: gray">
+    webdesign.bart.sk
+  </footer>
+</body>
+
