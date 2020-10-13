@@ -39,7 +39,6 @@ export class DataService {
   constructor() { }
 
   galleries(): Gallery[]{
-    console.log(this.katerogie);
     return this.katerogie;
   }
 
@@ -47,15 +46,23 @@ export class DataService {
     this.katerogie.push(newCategory);
   }
 
+  getPhotosToCattegoryCount(label){
+    let count = 0;
+    this.photos.forEach(photo => {
+      if (photo.label === label){
+        count ++;
+        }
+    });
+    return count;
+  }
+
   addPhoto(newPhoto){
-    this.photos.push(newPhoto);
+    this.photos.splice(0, 0, newPhoto);
   }
 
   getPhotosToCattegory(cattegory) {
-    var zvysok =  this.photos.filter(picture => picture.label === cattegory
+    const zvysok =  this.photos.filter(picture => picture.label === cattegory
   );
-    console.log(zvysok);
     return zvysok;
 }
-
 }

@@ -17,6 +17,7 @@ export class GalleryService {
   }
 
 
+
   addGallery(): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -36,9 +37,9 @@ export class GalleryService {
       },
       name: 'ludze'
     };
-    return this.http.post('http://api.programator.sk/gallery', gallery,httpOptions)
+    return this.http.post('http://api.programator.sk/gallery', gallery)
       .pipe(
-        catchError(this.handleError('addHero', gallery))
+        // catchError(this.handleError('addHero', gallery))
       );
   }
 

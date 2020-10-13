@@ -30,6 +30,19 @@ display: flex;
 justify-content: center;
 }
 
+.centrik{
+  padding-top: 5px;
+  display: flex;
+  position: relative;
+  justify-content: center;
+}
+.count{
+  position: absolute;
+  right: 5px;
+  font-size: 11px;
+  color: gray;
+}
+
 .last{
   max-height: 35%;
 }

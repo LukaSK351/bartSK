@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
@@ -19,6 +19,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
   ]
 })
 export class AllComponent implements OnInit {
+  @Input() vkladamSrc: string;
   src: string;
 
   isOpen = true;
@@ -28,19 +29,16 @@ export class AllComponent implements OnInit {
   ngOnInit(): void {
   }
   ngAfterViewChecked(){
-    var firstImage = document.getElementById('firstMan').firstElementChild.firstElementChild.getAttribute('src');
-    // console.log(document.getElementById('header').style.backgroundImage)
-    var image = document.getElementById('header');
+    const firstImage = document.getElementById('firstMan').firstElementChild.firstElementChild.getAttribute('src');
+    const image = document.getElementById('header');
     if (image.style.backgroundImage === ''){
-      image.style.backgroundImage = 'url(../' + firstImage + ')';
-      console.log("se vykonavam")
-      console.log(image)
+      image.style.backgroundImage = 'url(' + firstImage;
     }
   }
 
 
   onChageneSrc(src: string){
-    if (src == this.src){
+    if (src === this.src){
       return;
     }else{
 
@@ -48,7 +46,7 @@ export class AllComponent implements OnInit {
     this.src = src;
     setTimeout(() => {
       this.isOpen = true;
-      document.getElementById('header').style.backgroundImage = 'url(../' + this.src;
+      document.getElementById('header').style.backgroundImage = 'url(' + src;
     }, 200);
   }
   }

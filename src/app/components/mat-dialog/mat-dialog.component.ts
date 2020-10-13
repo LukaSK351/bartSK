@@ -16,8 +16,8 @@ export class MatDialogComponent{
   cattegory = new FormControl('');
 
   files: any[] = [];
-
-  url;
+  urlFiles = [];
+  url = [];
   msg = '';
   selectFile(event) {
     if (!event.target.files[0] || event.target.files[0].length === 0) {
@@ -32,88 +32,59 @@ export class MatDialogComponent{
       return;
     }
 
-    const reader = new FileReader();
-    reader.readAsDataURL(event.target.files[0]);
-
-    reader.onload = (_event) => {
+    for (let i = 0; i < event.target.files.length; i++){
+      const reader = new FileReader();
+      reader.readAsDataURL(event.target.files[i]);
+      this.urlFiles.push(event.target.files[i]);
+      reader.onload = (_event) => {
       this.msg = '';
-      this.url = reader.result;
-      console.log(this.url);
+      this.url.push(reader.result);
     };
+    }
   }
 
   close() {
     this.dialogRef.close(this.cattegory.value);
   }
 
-  onFileDropped($event) {
-      const formData = new FormData();
-      for (const file of this.files) {
-        formData.append(name, file, file.name);
-      }
-      this.http.post('url', formData).subscribe(x => console.log(x));
-
-      this.prepareFilesList($event);
-  }
-
-  /**
-   * handle file from browsing
-   */
-  fileBrowseHandler(files) {
-    this.prepareFilesList(files);
-  }
-
-  /**
-   * Delete file from files list
-   * @param index (File index)
-   */
-  deleteFile(index: number) {
-    this.files.splice(index, 1);
-  }
-
-  /**
-   * Simulate the upload process
-   */
-  uploadFilesSimulator(index: number) {
-    setTimeout(() => {
-      if (index === this.files.length) {
-        return;
-      } else {
-        const progressInterval = setInterval(() => {
-          if (this.files[index].progress === 100) {
-            clearInterval(progressInterval);
-            this.uploadFilesSimulator(index + 1);
-          } else {
-            this.files[index].progress += 5;
-          }
-        }, 200);
-      }
-    }, 1000);
-  }
-
-  /**
-   * Convert Files list to normal array list
-   * @param files (Files List)
-   */
-  prepareFilesList(files: Array<any>) {
-    for (const item of files) {
-      item.progress = 0;
-      this.files.push(item);
+  onFileDropped(event) {
+    if (!event[0] || event[0].length === 0) {
+      this.msg = 'You must select an image';
+      return;
     }
-    this.uploadFilesSimulator(0);
+    const mimeType = event[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      this.msg = 'Only images are supported';
+      return;
+    }
+
+    for (let i = 0; i < event.length; i++){
+      const reader = new FileReader();
+
+      reader.readAsDataURL(event[i]);
+      this.urlFiles.push(event[i]);
+      reader.onload = (_event) => {
+        this.msg = '';
+        this.url.push(reader.result);
+      };
+    }
   }
+
   pridja(){
     if (this.url === undefined){
       this.dialogRef.close();
       return;
     }
-    const photo = {
-      label: this.data,
-        icon: this.url,
-    };
-    this.dataSrvice.addPhoto(photo);
-    const kategoria = this.dataSrvice.katerogie.find(kat => kat.label === this.data);
-    kategoria.icon = this.url;
+    for (let i = 0; i < this.url.length; i++){
+      const photo = {
+        label: this.data,
+        icon: this.url[i],
+      };
+      this.dataSrvice.addPhoto(photo);
+      const kategoria = this.dataSrvice.katerogie.find(kat => kat.label === this.data);
+      kategoria.icon = this.url[i];
+    }
+
     this.dialogRef.close();
   }
   /**
@@ -121,15 +92,15 @@ export class MatDialogComponent{
    * @param bytes (File size in bytes)
    * @param decimals (Decimals point)
    */
-  formatBytes(bytes, decimals) {
-    if (bytes === 0) {
-      return '0 Bytes';
-    }
-    const k = 1024;
-    const dm = decimals <= 0 ? 0 : decimals || 2;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
-  }
+  // formatBytes(bytes) {
+  //   if (bytes === 0) {
+  //     return '0 Bytes';
+  //   }
+  //   const k = 1024;
+  //   // const dm = decimals <= 0 ? 0 : decimals || 2;
+  //   const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+  //   const i = Math.floor(Math.log(bytes) / Math.log(k));
+  //   return parseFloat((bytes / Math.pow(k, i)).toFixed()) + ' ' + sizes[i];
+  // }
 }
 

@@ -1,13 +1,15 @@
 
 <body>
   <h1>Fotogaleria</h1>
-<h2 class="header-end">Katedogie</h2>
+<h2 class="header-end">KATEGÓRIE</h2>
 <div id="firstMan" class="categories">
   <div *ngFor="let gallery of galleries"  class="category">
-    <img (mouseenter)="onMouseMove($event)" (mouseleave)="onMouseLeave($event)" class="toto" routerLink="/gallery/{{gallery.label}}" src="{{gallery.icon}}" alt="Italian Trulli">
+    <img (mouseenter)="onMouseMove($event)" class="toto" routerLink="/gallery/{{gallery.label}}" src="{{gallery.icon}}" alt="Italian Trulli">
     <div class="centrik">
-      <p class="name">{{gallery.label}}</p>
-
+      <p class="name">{{gallery.label}} </p>
+      <p class="count" *ngIf="this.dataService.getPhotosToCattegoryCount(gallery.label) > 1">
+        fotografie: {{this.dataService.getPhotosToCattegoryCount(gallery.label)}}
+      </p>
     </div>
   </div>
 
