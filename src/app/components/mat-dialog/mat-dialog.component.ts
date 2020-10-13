@@ -84,7 +84,6 @@ export class MatDialogComponent{
       const kategoria = this.dataSrvice.katerogie.find(kat => kat.label === this.data);
       kategoria.icon = this.url[i];
     }
-
     this.dialogRef.close();
   }
   /**

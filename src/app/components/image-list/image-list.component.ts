@@ -52,8 +52,6 @@ export class ImageListComponent implements OnInit, AfterViewChecked {
     dialogConfig.data = this.category;
     const dialogRef = this.dialog.open(MatDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(value => {
-      console.log(`Dialog sent: ${value}`);
-      console.log(value);
       if (value === undefined){
         this.photos = this.dataService.getPhotosToCattegory(this.category);
         return;
