@@ -1,6 +1,6 @@
 import {Component, ElementRef, Inject, OnInit, ViewChild} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
-import {MainComponent} from '../../views/main/main.component';
+import {MainComponent} from '../gallery-list/main.component';
 import {FormControl} from '@angular/forms';
 import {DataService} from '../../data/data.service';
 import {HttpClient} from '@angular/common/http';

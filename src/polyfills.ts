@@ -4,7 +4,7 @@
  *
  * This file is divided into 2 sections:
  *   1. Browser polyfills. These are applied before loading ZoneJS and are sorted by browsers.
- *   2. Application imports. Files imported after ZoneJS that should be loaded before your main
+ *   2. Application imports. Files imported after ZoneJS that should be loaded before your gallery-list
  *      file.
  *
  * The current setup is for so-called "evergreen" browsers; the last versions of browsers that
@@ -29,7 +29,7 @@
 // import 'web-animations-js';  // Run `npm install --save web-animations-js`.
 
 /**
- * By default, zone.js will patch all possible macroTask and DomEvents
+ * By default, zone.js will patch header possible macroTask and DomEvents
  * user can disable parts of macroTask/DomEvents patch by setting following flags
  * because those flags need to be set before `zone.js` being loaded, and webpack
  * will put import in the top of bundle, so user need to create a separate file
@@ -39,7 +39,7 @@
  *
  * The flags allowed in zone-flags.ts are listed here.
  *
- * The following flags will work for all browsers.
+ * The following flags will work for header browsers.
  *
  * (window as any).__Zone_disable_requestAnimationFrame = true; // disable patch requestAnimationFrame
  * (window as any).__Zone_disable_on_property = true; // disable patch onProperty such as onclick

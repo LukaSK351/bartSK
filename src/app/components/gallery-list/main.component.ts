@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {DataService} from '../../data/data.service';
 import {Gallery} from '../../model/gallery';
-import {MatDialogComponent} from '../../components/mat-dialog/mat-dialog.component';
+import {MatDialogComponent} from '../mat-dialog/mat-dialog.component';
 import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import {GalleryService} from '../../services/gallery.service';
 
