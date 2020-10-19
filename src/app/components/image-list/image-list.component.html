@@ -14,7 +14,7 @@
 
 
   <div *ngFor="let photo of this.photos" class="category">
-    <img (click)="showImage(photo.icon)" src="{{photo.icon}}" alt="Italian Trulli">
+    <img (click)="showImage(photo.path)" src="{{readImageFromAssets(photo)}}" alt="Italian Trulli">
   </div>
 
   <div (click)="openAddFileDialog()" class="category">

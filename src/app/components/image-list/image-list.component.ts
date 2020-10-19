@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import {DataService} from '../../data/data.service';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {MatDialogComponent} from '../mat-dialog/mat-dialog.component';
+import {GalleryService} from '../../services/gallery.service';
 
 @Component({
   selector: 'app-image-list',
@@ -14,13 +15,18 @@ export class ImageListComponent implements OnInit, AfterViewChecked {
   photos;
   category;
   url;
-  constructor(private router: Router,  private dialog: MatDialog, private route: ActivatedRoute, private dataService: DataService) { }
+  constructor(private router: Router, private galleryService: GalleryService, private dialog: MatDialog, private route: ActivatedRoute, private dataService: DataService) { }
 
   ngOnInit(): void {
     const pageURL = window.location.href;
     const lastURLSegment = pageURL.substr(pageURL.lastIndexOf('/') + 1);
     this.category = lastURLSegment;
     this.photos = this.dataService.getPhotosToCattegory(this.category);
+    this.galleryService.getImagesFromGallery(this.category).subscribe(images => {
+      this.photos = images;
+      this.photos = this.photos.images;
+      console.log(this.photos)
+    });
   }
 
   ngAfterViewChecked(){
@@ -34,11 +40,16 @@ export class ImageListComponent implements OnInit, AfterViewChecked {
     }
   }
 
+  readImageFromAssets(image){
+  return './assets/gallery/' + image.path;
+  }
+
   showImage(src){
+    console.log(src)
     const wrapper = document.getElementById('wrapper');
     wrapper.style.opacity = '0.5';
     const expandImg = document.getElementById('expandedImg');
-    expandImg.setAttribute('src', src);
+    expandImg.setAttribute('src', './assets/gallery/' + src);
     expandImg.parentElement.style.display = 'block';
 
   }

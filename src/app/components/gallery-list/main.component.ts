@@ -1,9 +1,10 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {DataService} from '../../data/data.service';
-import {Gallery} from '../../model/gallery';
+import { DomSanitizer } from '@angular/platform-browser';
 import {MatDialogComponent} from '../mat-dialog/mat-dialog.component';
 import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import {GalleryService} from '../../services/gallery.service';
+
 
 @Component({
   selector: 'app-main',
@@ -12,14 +13,61 @@ import {GalleryService} from '../../services/gallery.service';
 })
 export class MainComponent implements OnInit {
   @Output() imageSrc = new EventEmitter<string>();
-  galleries: Gallery[];
+  galleries;
   galleries2;
+  imageToShow;
+  url = [];
+  reader ;
 
-    constructor(public dataService: DataService, private dialog: MatDialog, private galleryService: GalleryService) { }
+    constructor(public dataService: DataService, private dialog: MatDialog, private galleryService: GalleryService, private sanitizer: DomSanitizer) { }
 
 
   ngOnInit(): void {
-    this.galleries = this.dataService.galleries();
+    // this.galleries = this.dataService.galleries();
+    this.galleries = this.galleryService.getGalleries().subscribe(galleries => {
+      this.galleries = galleries;
+      this.galleries = this.galleries.galleries;
+      // console.log(this.galleries);
+    });
+    // this.skuska()
+  }
+
+  skuska(){
+      this.galleryService.getImage(0,0, 'new/pexels-photo-24464.jpg').subscribe(data =>{
+      });
+  }
+
+   findImage(gallery){
+
+      // if (gallery.image == undefined){
+      //   return '../assets/gallery/no-image.jpg';
+      // }
+      //  else{
+      //    this.galleryService.getImage(0, 0, gallery.image.fullpath).subscribe(data => {
+      //      var premenna = URL.createObjectURL(data)
+      //     console.log(premenna.slice(5));
+      //      if (this.url == null )
+      //     this.url =  premenna.slice(5) ;
+      //
+      //   }, error => {
+      //     console.log(error)
+      //   });
+      // }
+     return '../assets/gallery/no-image.jpg';
+  }
+
+  createImageFromBlob(image: Blob) {
+    // this.reader =
+
+    if (image) {
+      this.reader =  new FileReader();
+      this.reader.readAsDataURL(image);
+    }
+    this.reader.addEventListener("load", () => {
+      return this.reader.result;
+    }, false);
+
+
   }
 
   onMouseMove(e){
@@ -37,7 +85,7 @@ export class MainComponent implements OnInit {
       if (value === undefined){
         return;
       }else {
-        this.addCategory(value);
+        this.addHttpCategory(value);
       }
     });
   }
@@ -51,6 +99,14 @@ export class MainComponent implements OnInit {
         icon: 'assets/gallery/no-image.jpg',
        };
       this.dataService.addCategory(newCategory);
+  }
+
+  addHttpCategory(name){
+    if (name === ''){
+      return;
+    }
+    this.galleryService.addGallery(name);
+    this.galleries.add(name);
   }
 }
 
