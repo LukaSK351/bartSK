@@ -1,9 +1,10 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {DataService} from '../../data/data.service';
-import {Gallery} from '../../model/gallery';
+import { DomSanitizer } from '@angular/platform-browser';
 import {MatDialogComponent} from '../mat-dialog/mat-dialog.component';
 import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import {GalleryService} from '../../services/gallery.service';
+
 
 @Component({
   selector: 'app-main',
@@ -12,21 +13,23 @@ import {GalleryService} from '../../services/gallery.service';
 })
 export class MainComponent implements OnInit {
   @Output() imageSrc = new EventEmitter<string>();
-  galleries: Gallery[];
+  galleries;
   galleries2;
+  url = [];
+  reader;
 
-    constructor(public dataService: DataService, private dialog: MatDialog, private galleryService: GalleryService) { }
+  constructor(public dataService: DataService, private dialog: MatDialog, private galleryService: GalleryService, private sanitizer: DomSanitizer) { }
 
 
   ngOnInit(): void {
-    this.galleries = this.dataService.galleries();
+    this.galleryService.getGalleries().subscribe(galleries => {
+      this.galleries = galleries;
+      this.galleries = this.galleries.galleries;
+    });
   }
 
-  onMouseMove(e){
-      if (document.elementFromPoint(e.pageX, e.pageY).classList.contains('toto')){
-        const url = document.elementFromPoint(e.pageX, e.pageY).getAttribute('src');
-        this.imageSrc.emit(url);
-      }
+  sendImageToHeader(image){
+    this.imageSrc.emit(image);
   }
 
   openAddFileDialog() {
@@ -37,7 +40,7 @@ export class MainComponent implements OnInit {
       if (value === undefined){
         return;
       }else {
-        this.addCategory(value);
+        this.addHttpCategory(value);
       }
     });
   }
@@ -51,6 +54,18 @@ export class MainComponent implements OnInit {
         icon: 'assets/gallery/no-image.jpg',
        };
       this.dataService.addCategory(newCategory);
+  }
+
+  addHttpCategory(nameOfCategory){
+    if (nameOfCategory === ''){
+      return;
+    }
+    this.galleryService.addGallery(nameOfCategory);
+    const newGallery = {
+      name: nameOfCategory,
+      path: nameOfCategory
+    };
+    this.galleries.push(newGallery);
   }
 }
 

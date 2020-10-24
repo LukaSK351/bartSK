@@ -1,28 +1,21 @@
 
 <body>
   <h1>Fotogaleria</h1>
-<h2 class="header-end">KATEGÓRIE</h2>
-<div id="firstMan" class="categories">
-  <div *ngFor="let gallery of galleries"  class="category">
-    <img (mouseenter)="onMouseMove($event)" class="toto" routerLink="/gallery/{{gallery.label}}" src="{{gallery.icon}}" alt="Italian Trulli">
-    <div class="centrik">
-      <p class="name">{{gallery.label}} </p>
-      <p class="count" *ngIf="this.dataService.getPhotosToCattegoryCount(gallery.label) > 1">
-        fotografie: {{this.dataService.getPhotosToCattegoryCount(gallery.label)}}
-      </p>
+  <h2 class="header-end">KATEGÓRIE</h2>
+  <div id="firstMan" class="categories">
+    <div *ngFor="let gallery of galleries"  class="category">
+      <app-the-image [gallery]="gallery" (imageSrc)="sendImageToHeader($event)"></app-the-image>
     </div>
+
+      <div (click)="openAddFileDialog()" class="newCategory category">
+         <div class="center">
+          <img class="last" src="../../../assets/icons/plusIcon.svg" alt="Italian Trulli">
+           <p class="name">Pridat kategoriu</p>
+          </div>
+      </div>
   </div>
 
-  <div (click)="openAddFileDialog()" class="category">
-    <div class="center">
-    <img class="last" src="../../../assets/icons/plusIcon.svg" alt="Italian Trulli">
-
-      <p class="name">Pridat kategoriu</p>
-    </div>
-  </div>
-
-</div>
-  <footer style="color: gray">
+  <footer class="footer" >
     webdesign.bart.sk
   </footer>
 </body>

@@ -1,24 +1,48 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {catchError} from 'rxjs/operators';
+import {catchError, first} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GalleryService {
-
   constructor(private http: HttpClient) {
 
   }
-
   getGalleries() {
     return this.http.get('http://api.programator.sk/gallery');
   }
 
+  getImage(width, height, fullPath) {
+    return this.http.get('http://api.programator.sk/images/0x0/' + fullPath, {responseType: 'blob'});
+  }
+
+  addImage(file: File, category){
+    const formData = new FormData();
+    formData.append('file', file);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'multipart/form-data; boundary=--boundary',
+        // Authorization: 'my-auth-token'
+      })
+    };
 
 
-  addGallery(): Observable<any> {
+    this.http.post<any>('http://api.programator.sk/gallery/' + category, formData).subscribe({
+    error: err => {
+      console.log('there was an error' + err);
+      console.log(err);
+    }
+  });
+
+}
+
+  getImagesFromGallery(name){
+    return this.http.get('http://api.programator.sk/gallery/' + name);
+  }
+
+  addGallery(gallery){
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -26,21 +50,15 @@ export class GalleryService {
       })
     };
 
-
-    var gallery = {
-      path: 'testit',
-      image: {
-        path: 'obr.jpg',
-        fullpath: 'kategoria/grey.jpg',
-        name: 'grey',
-        modified: '2020-08-13T10:38:30.0+0200'
-      },
-      name: 'ludze'
+    const galleryName = {
+      name: gallery
     };
-    return this.http.post('http://api.programator.sk/gallery', gallery)
-      .pipe(
-        // catchError(this.handleError('addHero', gallery))
-      );
+
+    this.http.post<any>('http://api.programator.sk/gallery', galleryName).subscribe({
+      error: err => {
+        console.log('there was an error' + err);
+      }
+    });
   }
 
   private handleError(error: HttpErrorResponse) {

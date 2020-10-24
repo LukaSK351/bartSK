@@ -1,4 +1,3 @@
-
 body{
   width: 80%;
   margin: 0 auto;
@@ -10,6 +9,21 @@ body{
   right: 0;
   color: white;
 }
+.wrapper-category{
+  border: 2px solid gainsboro;
+  border-radius: 5px;
+  width: 12em;
+  height: 10em;
+  position: relative;
+  display: flex;
+}
+
+.wrapper-image{
+  border: 2px solid gainsboro;
+  border-radius: 5px;
+  width: 12em;
+  height: 10em;
+}
 .header-end{
   border-bottom: 1px solid white;
   font-size: 1em;
@@ -17,27 +31,22 @@ body{
 }
 .category{
   width: 200px;
-  height: 150px;
+  height: 140px;
   margin: 10px 10px 10px 0;
   transition: 0.3s;
 }
 .center{
   height: 100%;
-  width: 100%;
-display: flex;
+  display: flex;
   flex-direction: column;
-justify-content: center;
-}
-.footer{
-  margin-top: 12px;
-  color: gray;
+  justify-content: center;
 }
 
 .centrik{
-  padding-top: 5px;
-  display: flex;
-  position: relative;
-  justify-content: center;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  bottom: 0px;
 }
 .count{
   position: absolute;
@@ -45,6 +54,16 @@ justify-content: center;
   font-size: 11px;
   color: gray;
 }
+.imageWrapper{
+  display: flex;
+  width: 100%;
+  height: 75%;
+}
+
+.loading{
+  margin: auto;
+}
+
 
 .last{
   max-height: 35%;
@@ -53,11 +72,25 @@ justify-content: center;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  height: 100%;
+
 }
 img{
   width: 100%;
-  max-height: 75%;
+  //max-height: 75%;
+  margin-top: 0px;
 }
+.imageInCategory{
+  width: 100%;
+  max-height: 100%;
+  border-radius: 5px;
+}
+//.imageInGalleries{
+//
+//  width: 100%;
+//  max-height: 100%;
+//}
+
 .name{
   margin: 0;
   text-align: center;
@@ -67,14 +100,5 @@ img{
 
 .category:hover{
   transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
-}
 
-.newCategory{
-  border: 2px solid gainsboro;
-  border-radius: 5px;
-  width: 12em;
-  height: 10em;
-  position: relative;
-  display: flex;
-  margin: 10px 10px 10px 0;
 }

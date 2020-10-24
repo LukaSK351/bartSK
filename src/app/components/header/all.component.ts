@@ -28,26 +28,13 @@ export class AllComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  ngAfterViewChecked(){
-    const firstImage = document.getElementById('firstMan').firstElementChild.firstElementChild.getAttribute('src');
-    const image = document.getElementById('header');
-    if (image.style.backgroundImage === ''){
-      image.style.backgroundImage = 'url(' + firstImage;
-    }
-  }
-
 
   onChageneSrc(src: string){
     if (src === this.src){
       return;
     }else{
-
-    this.isOpen = false;
     this.src = src;
-    setTimeout(() => {
-      this.isOpen = true;
-      document.getElementById('header').style.backgroundImage = 'url(' + src;
-    }, 200);
+    document.getElementById('header').style.backgroundImage = 'url(' + src;
   }
   }
 
