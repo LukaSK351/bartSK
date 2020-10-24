@@ -10,7 +10,6 @@ export class GalleryService {
   constructor(private http: HttpClient) {
 
   }
-
   getGalleries() {
     return this.http.get('http://api.programator.sk/gallery');
   }
@@ -19,20 +18,18 @@ export class GalleryService {
     return this.http.get('http://api.programator.sk/images/0x0/' + fullPath, {responseType: 'blob'});
   }
 
+  addImage(file: File, category){
+    const formData = new FormData();
+    formData.append('file', file);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'multipart/form-data; boundary=--boundary',
+        // Authorization: 'my-auth-token'
+      })
+    };
 
 
-addImage(file: File){
-  const formData = new FormData();
-  formData.append('file', file);
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type':  'multipart/form-data; boundary=--boundary',
-      // Authorization: 'my-auth-token'
-    })
-  };
-  console.log()
-
-  this.http.post<any>('http://api.programator.sk/gallery/yes', formData).subscribe({
+    this.http.post<any>('http://api.programator.sk/gallery/' + category, formData).subscribe({
     error: err => {
       console.log('there was an error' + err);
       console.log(err);
@@ -41,9 +38,9 @@ addImage(file: File){
 
 }
 
-getImagesFromGallery(name){
-  return this.http.get('http://api.programator.sk/gallery/' + name);
-}
+  getImagesFromGallery(name){
+    return this.http.get('http://api.programator.sk/gallery/' + name);
+  }
 
   addGallery(gallery){
     const httpOptions = {
@@ -53,11 +50,11 @@ getImagesFromGallery(name){
       })
     };
 
-    var gallery2 = {
+    const galleryName = {
       name: gallery
     };
 
-    this.http.post<any>('http://api.programator.sk/gallery', gallery2).subscribe({
+    this.http.post<any>('http://api.programator.sk/gallery', galleryName).subscribe({
       error: err => {
         console.log('there was an error' + err);
       }

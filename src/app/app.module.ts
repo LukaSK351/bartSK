@@ -15,6 +15,7 @@ import { DndDirective } from './directives/dnd.directive';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AllComponent } from './components/header/all.component';
+import { TheImageComponent } from './components/the-image/the-image.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { AllComponent } from './components/header/all.component';
     MatDialogComponent,
     ImageListComponent,
     DndDirective,
-    AllComponent
+    AllComponent,
+    TheImageComponent
   ],
   imports: [
     BrowserModule,

@@ -15,7 +15,9 @@ export class ImageListComponent implements OnInit, AfterViewChecked {
   photos;
   category;
   url;
-  constructor(private router: Router, private galleryService: GalleryService, private dialog: MatDialog, private route: ActivatedRoute, private dataService: DataService) { }
+
+  constructor(private router: Router, private galleryService: GalleryService,
+              private dialog: MatDialog, private route: ActivatedRoute, private dataService: DataService) { }
 
   ngOnInit(): void {
     const pageURL = window.location.href;
@@ -25,7 +27,6 @@ export class ImageListComponent implements OnInit, AfterViewChecked {
     this.galleryService.getImagesFromGallery(this.category).subscribe(images => {
       this.photos = images;
       this.photos = this.photos.images;
-      console.log(this.photos)
     });
   }
 
@@ -33,7 +34,7 @@ export class ImageListComponent implements OnInit, AfterViewChecked {
     if (this.photos.length === 0){
       document.getElementById('imagee').style.backgroundImage = 'url(\'assets/gallery/no-image.jpg\')';
     }else{
-      const firstImage = document.getElementById('firstElement').firstElementChild.firstElementChild;
+      const firstImage = document.getElementById('firstElement').firstElementChild.firstElementChild.firstElementChild.firstElementChild;
       const header = document.getElementById('imagee');
       header.style.backgroundImage = 'url(' + firstImage.getAttribute('src');
       this.url = firstImage.getAttribute('src');
@@ -45,14 +46,13 @@ export class ImageListComponent implements OnInit, AfterViewChecked {
   }
 
   showImage(src){
-    console.log(src)
     const wrapper = document.getElementById('wrapper');
     wrapper.style.opacity = '0.5';
     const expandImg = document.getElementById('expandedImg');
     expandImg.setAttribute('src', './assets/gallery/' + src);
     expandImg.parentElement.style.display = 'block';
-
   }
+
   close(){
     const wrapper = document.getElementById('wrapper');
     wrapper.style.opacity = '1';
@@ -64,10 +64,51 @@ export class ImageListComponent implements OnInit, AfterViewChecked {
     const dialogRef = this.dialog.open(MatDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(value => {
       if (value === undefined){
-        this.photos = this.dataService.getPhotosToCattegory(this.category);
         return;
       }else {
-        this.photos = this.dataService.getPhotosToCattegory(this.category);
+
+        if (value.length > 1) {
+          setTimeout(() => {
+            for (let i = 0;  i < value.length; i++){
+
+              const imageType = value[i].name.split('.').pop();
+              var jpegToJpg;
+
+              if (imageType === 'jpeg'){
+                jpegToJpg = value[i].name.slice(0, -4);
+                jpegToJpg = jpegToJpg + 'jpg';
+              }else{
+                jpegToJpg = value[i].name;
+              }
+
+              const image = {
+                path: value[i].name ,
+                fullpath: this.category + '/' + jpegToJpg,
+              };
+              this.photos.push(image);
+            }
+          }, 2000);
+
+
+        }else{
+          const imageType = value[0].name.split('.').pop();
+          var jpegToJpg;
+
+          if (imageType === 'jpeg'){
+            jpegToJpg = value[0].name.slice(0, -4);
+            jpegToJpg = jpegToJpg + 'jpg';
+          }else{
+            jpegToJpg = value[0].name;
+          }
+
+          const image = {
+            path: value[0].name ,
+            fullpath: this.category + '/' + jpegToJpg,
+          };
+          setTimeout(() => {
+            this.photos.push(image);
+          }, 2000);
+        }
       }
     });
   }

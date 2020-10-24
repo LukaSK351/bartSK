@@ -20,19 +20,20 @@ export class MatDialogComponent{
   urlFiles = [];
   url = [];
   msg = '';
+  file;
+  finalFiles;
   selectFile(event) {
     if (!event.target.files[0] || event.target.files[0].length === 0) {
       this.msg = 'You must select an image';
       return;
     }
-
     const mimeType = event.target.files[0].type;
 
     if (mimeType.match(/image\/*/) == null) {
       this.msg = 'Only images are supported';
       return;
     }
-
+    this.finalFiles = event.target.files;
     for (let i = 0; i < event.target.files.length; i++){
       const reader = new FileReader();
       reader.readAsDataURL(event.target.files[i]);
@@ -82,15 +83,15 @@ export class MatDialogComponent{
       this.msg = 'Only images are supported';
       return;
     }
-
+    this.url = event;
+    this.finalFiles = event;
     for (let i = 0; i < event.length; i++){
       const reader = new FileReader();
-
       reader.readAsDataURL(event[i]);
       this.urlFiles.push(event[i]);
       reader.onload = (_event) => {
         this.msg = '';
-        this.url.push(reader.result);
+        // this.url.push(reader.result);
       };
     }
   }
@@ -105,32 +106,16 @@ export class MatDialogComponent{
         label: this.data,
         icon: this.url[i],
       };
-      // this.dataSrvice.addPhoto(photo);
 
-      var file = document.getElementById('fileDropRef').files[0];
-      console.log(file)
-      this.galleryService.addImage(file);
+      // @ts-ignore
+      this.files = document.getElementById('fileDropRef').files;
 
-      // const kategoria = this.dataSrvice.katerogie.find(kat => kat.label === this.data);
-      // kategoria.icon = this.url[i];
+      for (let i = 0;  i < this.finalFiles.length; i++){
+          this.galleryService.addImage(this.finalFiles[i], this.data);
+      }
     }
-    this.dialogRef.close();
+    this.dialogRef.close(this.finalFiles);
   }
 
-  /**
-   * format bytes
-   * @param bytes (File size in bytes)
-   * @param decimals (Decimals point)
-   */
-  // formatBytes(bytes) {
-  //   if (bytes === 0) {
-  //     return '0 Bytes';
-  //   }
-  //   const k = 1024;
-  //   // const dm = decimals <= 0 ? 0 : decimals || 2;
-  //   const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-  //   const i = Math.floor(Math.log(bytes) / Math.log(k));
-  //   return parseFloat((bytes / Math.pow(k, i)).toFixed()) + ' ' + sizes[i];
-  // }
 }
 
