@@ -16,13 +16,17 @@ export class TheImageComponent implements OnInit {
   image;
   @Input() category: boolean;
   @Input() imagesInGallery;
+  numberOfImages: number;
 
   loading: boolean = true;
+
   constructor(public dataService: DataService, private galleryService: GalleryService, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
 
     if (this.gallery != undefined && this.gallery.image != undefined && this.fromCategory != true) {
+      console.log("som v gallerylist")
+      // console.log(this.gallery);
       this.galleryService.getImage(0, 0, this.gallery.image.fullpath).subscribe(data => {
         const reader = new FileReader();
 
@@ -35,8 +39,13 @@ export class TheImageComponent implements OnInit {
           reader.readAsDataURL(data);
         }
       });
+      this.galleryService.getCountOfImagesFromGallery(this.gallery.path).subscribe(gallery => {
+        console.log(gallery.images)
+        this.numberOfImages = gallery.images.length;
+      })
     }
     else if (this.fromCategory == true){
+
       this.galleryService.getImage(0, 0, this.imagesInGallery.fullpath).subscribe(data => {
           const reader = new FileReader();
           reader.addEventListener('load', () => {
@@ -68,6 +77,20 @@ export class TheImageComponent implements OnInit {
     if (document.elementFromPoint(e.pageX, e.pageY).classList.contains('toto')){
       const url = document.elementFromPoint(e.pageX, e.pageY).getAttribute('src');
       this.imageSrc.emit(url);
+      console.log(url)
+    }
+  }
+  declension(){
+    if (this.numberOfImages === undefined){
+      return '0 fotiek';
+    }
+    if (this.numberOfImages === 1){
+      return 'fotka';
+    }
+    else if (this.numberOfImages === 2 || this.numberOfImages === 3 || this.numberOfImages === 4 ){
+      return 'fotky';
+    }else{
+      return 'fotiek';
     }
   }
 

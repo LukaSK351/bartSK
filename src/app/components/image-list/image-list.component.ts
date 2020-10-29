@@ -36,8 +36,11 @@ export class ImageListComponent implements OnInit, AfterViewChecked {
     }else{
       const firstImage = document.getElementById('firstElement').firstElementChild.firstElementChild.firstElementChild.firstElementChild;
       const header = document.getElementById('imagee');
-      header.style.backgroundImage = 'url(' + firstImage.getAttribute('src');
-      this.url = firstImage.getAttribute('src');
+      const srcfirstImage = firstImage.src.split('/')[firstImage.src.split('/').length-1];
+      if (srcfirstImage !== 'loading.svg') {
+        header.style.backgroundImage = 'url(' + firstImage.getAttribute('src');
+        this.url = firstImage.getAttribute('src');
+      }
     }
   }
 

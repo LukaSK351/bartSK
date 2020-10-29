@@ -6,8 +6,8 @@
   </div>
 <div class="centrik">
   <p class="name">{{gallery.name}} </p>
-  <p class="count" *ngIf="this.dataService.getPhotosToCattegoryCount(gallery.label) > 1">
-    fotografie: {{this.dataService.getPhotosToCattegoryCount(gallery.label)}}
+  <p class="count">
+    {{this.numberOfImages}}  {{this.declension()}}
   </p>
 </div>
 </div>

@@ -10,8 +10,9 @@
   -o-background-size: cover;
   background-size: cover;
   position: relative;
-  //opacity: 0.5;
+  opacity: 0.5;
   filter: blur(8px) brightness(60%);
+  transform: scale(1.1);
 }
 header{
 

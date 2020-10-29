@@ -42,6 +42,10 @@ export class GalleryService {
     return this.http.get('http://api.programator.sk/gallery/' + name);
   }
 
+  getCountOfImagesFromGallery(name){
+    return this.http.get('http://api.programator.sk/gallery/' + name);
+  }
+
   addGallery(gallery){
     const httpOptions = {
       headers: new HttpHeaders({
