@@ -1,3 +1,4 @@
+@import "../../styles/shared/variables";
 body{
   width: 80%;
   margin: 0 auto;
@@ -57,7 +58,7 @@ body{
 }
 .count{
   font-size: 11px;
-  color: gray;
+  color: $color-gray-info;
   display: none;
   visibility: visible;
   align-self: center;
@@ -66,7 +67,7 @@ body{
 .imageWrapper{
   display: flex;
   width: 100%;
-  height: 75%;
+  height: 72%;
   transition: 0.3s;
 }
 
@@ -107,7 +108,13 @@ img{
 .name{
   margin: 0;
   text-align: center;
-  color: gray;
+  //color: $color-gray-name;
+  font:{
+    weight: 600;
+    size: 0.9em;
+  }
+  color: rgba(91, 91, 91, 0.9);
+  text-transform: uppercase;
 }
 
 

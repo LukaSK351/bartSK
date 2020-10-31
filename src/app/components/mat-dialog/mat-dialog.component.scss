@@ -3,7 +3,7 @@
   height: 200px;
   padding: 2rem;
   text-align: center;
-  border: dashed 1px #979797;
+  border: dashed 2px #979797;
   position: relative;
   margin: 0 auto;
 
@@ -39,7 +39,8 @@ mat-form-field{
 
 button{
   background: rgba(46, 204, 113, 1);
-  padding: 5px 10px;
+  padding: 9px 19px;
+  margin-top: 5px;
   border-radius: 4px;
   border: none;
   color: white;
@@ -104,6 +105,14 @@ input::placeholder{
       width: 100%
     }
   }
+}
+.header-add{
+  margin-top: 0;
+  font-size: 1.3em;
+}
+.addButton{
+  bottom: -10px;
+  margin-bottom: -13px;
 }
 
 /* Shake animation */

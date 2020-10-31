@@ -11,7 +11,7 @@
 </div>
 
 <div *ngIf="this.data">
-
+<h1 class="header-add">PRIDAŤ FOTKY</h1>
 <div class="container" appDnd id="fileDropRef2" (fileDropped)="onFileDropped($event)">
   <input type="file" #fileDropRef id="fileDropRef" multiple (change)="selectFile($event)" />
   <svg xmlns="http://www.w3.org/2000/svg" width="63" height="64" viewBox="0 0 63 64">
@@ -27,7 +27,7 @@
 
   <h3>SEM PRESUNTE FOTKY</h3>
   <h3>alebo</h3>
-  <label for="fileDropRef">Vyberte subor</label>
+  <label for="fileDropRef">Vyberte subory</label>
 </div>
 <div style="position: relative" class="files-list">
   <div class="single-file" *ngFor="let file of this.urlFiles; let i = index">
@@ -60,6 +60,6 @@
 <!--      <app-progress [progress]="file?.progress"></app-progress>-->
     </div>
   </div>
-  <button style="bottom: -10px" (click)="pridja()" >+ PRIDAT</button>
+  <button class="addButton" (click)="pridja()" >+ PRIDAT</button>
 </div>
 </div>

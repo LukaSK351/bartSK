@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
 import {DataService} from '../../data/data.service';
 import {Gallery} from '../../model/gallery';
 import {GalleryService} from '../../services/gallery.service';
@@ -17,7 +17,7 @@ export class TheImageComponent implements OnInit {
   @Input() category: boolean;
   @Input() imagesInGallery;
   numberOfImages: number;
-
+  @Input() indexOfImage;
   loading: boolean = true;
 
   constructor(public dataService: DataService, private galleryService: GalleryService, private sanitizer: DomSanitizer) { }
@@ -27,12 +27,13 @@ export class TheImageComponent implements OnInit {
     if (this.gallery != undefined && this.gallery.image != undefined && this.fromCategory != true) {
       console.log("som v gallerylist")
       // console.log(this.gallery);
-      this.galleryService.getImage(0, 0, this.gallery.image.fullpath).subscribe(data => {
+      this.galleryService.getImage(400, 0, this.gallery.image.fullpath).subscribe(data => {
         const reader = new FileReader();
 
         reader.addEventListener('load', () => {
           this.loading = false;
           this.image = reader.result;
+          this.imageSrc.emit(this.image);
         });
 
         if (data) {
@@ -46,7 +47,7 @@ export class TheImageComponent implements OnInit {
     }
     else if (this.fromCategory == true){
 
-      this.galleryService.getImage(0, 0, this.imagesInGallery.fullpath).subscribe(data => {
+      this.galleryService.getImage(200, 0, this.imagesInGallery.fullpath).subscribe(data => {
           const reader = new FileReader();
           reader.addEventListener('load', () => {
             this.loading = false;
@@ -70,16 +71,14 @@ export class TheImageComponent implements OnInit {
     wrapper.style.opacity = '0.5';
     const expandImg = document.getElementById('expandedImg');
     expandImg.setAttribute('src', src);
-    expandImg.parentElement.style.display = 'block';
+    expandImg.setAttribute('alt', this.indexOfImage);
+    document.getElementById('overlay').style.display = 'flex';
 
   }
-  onMouseMove(e){
-    if (document.elementFromPoint(e.pageX, e.pageY).classList.contains('toto')){
-      const url = document.elementFromPoint(e.pageX, e.pageY).getAttribute('src');
-      this.imageSrc.emit(url);
-      console.log(url)
-    }
+  onMouseMove(){
+      this.imageSrc.emit(this.image);
   }
+
   declension(){
     if (this.numberOfImages === undefined){
       return '0 fotiek';
