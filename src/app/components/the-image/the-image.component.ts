@@ -1,8 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
 import {DataService} from '../../data/data.service';
 import {Gallery} from '../../model/gallery';
 import {GalleryService} from '../../services/gallery.service';
 import {DomSanitizer} from '@angular/platform-browser';
+import {take} from 'rxjs/operators';
 
 @Component({
   selector: 'app-the-image',
@@ -16,28 +17,45 @@ export class TheImageComponent implements OnInit {
   image;
   @Input() category: boolean;
   @Input() imagesInGallery;
-
+  numberOfImages: number;
+  @Input() indexOfImage;
   loading: boolean = true;
+
   constructor(public dataService: DataService, private galleryService: GalleryService, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
 
-    if (this.gallery != undefined && this.gallery.image != undefined && this.fromCategory != true) {
-      this.galleryService.getImage(0, 0, this.gallery.image.fullpath).subscribe(data => {
+    if (this.gallery !== undefined && this.gallery.image !== undefined && this.fromCategory !== true) {
+      this.galleryService.getImage(250, 0, this.gallery.image.fullpath).subscribe(data => {
         const reader = new FileReader();
 
         reader.addEventListener('load', () => {
           this.loading = false;
           this.image = reader.result;
+          // if (document.getElementById('header').getAttribute('style').slice(-4) == '"");'){
+          this.dataService.currentImage.pipe(take(1)).subscribe(img => {
+            // console.log(img);
+            if (img === 'empty'){
+              this.imageSrc.emit(this.image);
+              this.dataService.changeHeaderImg(this.image);
+            }
+          });
+
+          // }
         });
 
         if (data) {
           reader.readAsDataURL(data);
         }
       });
+      this.galleryService.getCountOfImagesFromGallery(this.gallery.path).subscribe(gallery => {
+        // @ts-ignore
+        this.numberOfImages = gallery.images.length;
+      });
     }
-    else if (this.fromCategory == true){
-      this.galleryService.getImage(0, 0, this.imagesInGallery.fullpath).subscribe(data => {
+    else if (this.fromCategory === true){
+
+      this.galleryService.getImage(700, 0, this.imagesInGallery.fullpath).subscribe(data => {
           const reader = new FileReader();
           reader.addEventListener('load', () => {
             this.loading = false;
@@ -57,17 +75,27 @@ export class TheImageComponent implements OnInit {
   }
 
   showImage(src){
-    const wrapper = document.getElementById('wrapper');
-    wrapper.style.opacity = '0.5';
     const expandImg = document.getElementById('expandedImg');
     expandImg.setAttribute('src', src);
-    expandImg.parentElement.style.display = 'block';
-
+    expandImg.setAttribute('alt', this.indexOfImage);
+    document.getElementById('overlay').style.display = 'flex';
   }
-  onMouseMove(e){
-    if (document.elementFromPoint(e.pageX, e.pageY).classList.contains('toto')){
-      const url = document.elementFromPoint(e.pageX, e.pageY).getAttribute('src');
-      this.imageSrc.emit(url);
+
+  onMouseMove(){
+    this.dataService.changeHeaderImg(this.image);
+  }
+
+  declension(){
+    if (this.numberOfImages === undefined){
+      return '0 fotiek';
+    }
+    if (this.numberOfImages === 1){
+      return 'fotka';
+    }
+    else if (this.numberOfImages === 2 || this.numberOfImages === 3 || this.numberOfImages === 4 ){
+      return 'fotky';
+    }else{
+      return 'fotiek';
     }
   }
 

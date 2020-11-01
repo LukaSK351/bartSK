@@ -17,6 +17,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AllComponent } from './components/header/all.component';
 import { TheImageComponent } from './components/the-image/the-image.component';
 
+import { ToastrModule } from 'ngx-toastr';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { TheImageComponent } from './components/the-image/the-image.component';
     ImageListComponent,
     DndDirective,
     AllComponent,
-    TheImageComponent
+    TheImageComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,8 @@ import { TheImageComponent } from './components/the-image/the-image.component';
     MatInputModule,
     HttpClientModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
 
   ],
   providers: [],

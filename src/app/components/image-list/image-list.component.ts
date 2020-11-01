@@ -1,4 +1,4 @@
-import {AfterViewChecked, Component, Input, OnInit} from '@angular/core';
+import {AfterViewChecked, Component, HostListener, Input, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import {DataService} from '../../data/data.service';
@@ -15,7 +15,22 @@ export class ImageListComponent implements OnInit, AfterViewChecked {
   photos;
   category;
   url;
+  getElement = document.getElementById;
 
+  @HostListener('document:keydown.escape', ['$event']) onKeydownHandler(event: KeyboardEvent) {
+    this.close();
+  }
+  @HostListener('window:keyup', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    // right
+    if (event.keyCode === 39) {
+      this.nextImage();
+    }
+    // left
+    if (event.keyCode === 37) {
+      this.previousImage();
+    }
+  }
   constructor(private router: Router, private galleryService: GalleryService,
               private dialog: MatDialog, private route: ActivatedRoute, private dataService: DataService) { }
 
@@ -29,15 +44,14 @@ export class ImageListComponent implements OnInit, AfterViewChecked {
       this.photos = this.photos.images;
     });
   }
-
   ngAfterViewChecked(){
     if (this.photos.length === 0){
-      document.getElementById('imagee').style.backgroundImage = 'url(\'assets/gallery/no-image.jpg\')';
+      return;
     }else{
-      const firstImage = document.getElementById('firstElement').firstElementChild.firstElementChild.firstElementChild.firstElementChild;
-      const header = document.getElementById('imagee');
-      header.style.backgroundImage = 'url(' + firstImage.getAttribute('src');
-      this.url = firstImage.getAttribute('src');
+      const firstImage = document.getElementById('0');
+      if (firstImage != null) {
+      this.dataService.changeHeaderImg(firstImage.getAttribute('src'));
+      }
     }
   }
 
@@ -56,23 +70,24 @@ export class ImageListComponent implements OnInit, AfterViewChecked {
   close(){
     const wrapper = document.getElementById('wrapper');
     wrapper.style.opacity = '1';
+    document.getElementById('overlay').style.display = 'none';
   }
 
   openAddFileDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = this.category;
+    dialogConfig.minHeight = '400px';
+    dialogConfig.height = 'auto';
     const dialogRef = this.dialog.open(MatDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(value => {
       if (value === undefined){
         return;
       }else {
-
         if (value.length > 1) {
           setTimeout(() => {
             for (let i = 0;  i < value.length; i++){
-
               const imageType = value[i].name.split('.').pop();
-              var jpegToJpg;
+              let jpegToJpg;
 
               if (imageType === 'jpeg'){
                 jpegToJpg = value[i].name.slice(0, -4);
@@ -86,13 +101,16 @@ export class ImageListComponent implements OnInit, AfterViewChecked {
                 fullpath: this.category + '/' + jpegToJpg,
               };
               this.photos.push(image);
+              const firstImage = document.getElementById('0');
+              this.url = firstImage.getAttribute('src');
+              this.dataService.changeHeaderImg(firstImage.getAttribute('src'));
             }
           }, 2000);
 
 
         }else{
           const imageType = value[0].name.split('.').pop();
-          var jpegToJpg;
+          let jpegToJpg;
 
           if (imageType === 'jpeg'){
             jpegToJpg = value[0].name.slice(0, -4);
@@ -111,5 +129,26 @@ export class ImageListComponent implements OnInit, AfterViewChecked {
         }
       }
     });
+  }
+  nextImage(){
+    const expandImg = document.getElementById('expandedImg');
+    let nextElementId = parseInt(expandImg.getAttribute('alt'), 10) + 1;
+    const nextImage = document.getElementById(nextElementId.toString());
+    if (nextImage == null){
+      return;
+    }
+    expandImg.setAttribute('src', nextImage.getAttribute('src'));
+    expandImg.setAttribute('alt', nextElementId.toString());
+
+  }
+  previousImage(){
+    const expandImg = document.getElementById('expandedImg');
+    let previousElementId = parseInt(expandImg.getAttribute('alt'), 10) - 1;
+    const previousImage = document.getElementById(previousElementId.toString());
+    if (previousImage == null){
+      return;
+    }
+    expandImg.setAttribute('src', previousImage.getAttribute('src'));
+    expandImg.setAttribute('alt', previousElementId.toString());
   }
 }

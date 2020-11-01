@@ -1,80 +1,46 @@
+@import "../../styles/shared/variables";
+@import "../../styles/shared/mixins";
 
-body{
-  width: 80%;
-  margin: 0 auto;
-  position: absolute;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: -12em;
-  left: 0;
-  right: 0;
-  color: white;
+.headerName{
+  @include header-name;
 }
 .header-end{
-  border-bottom: 1px solid white;
-  font-size: 1em;
-  font-weight: 400;
+  @include header-end;
 }
 .category{
-  width: 200px;
-  height: 150px;
-  margin: 10px 10px 10px 0;
-  transition: 0.3s;
+  @include category
 }
-.center{
-  height: 100%;
-  width: 100%;
-display: flex;
-  flex-direction: column;
-justify-content: center;
-}
-.footer{
-  margin-top: 12px;
-  color: gray;
+@media only screen and (max-width: 694px) {
+  .category{
+    flex-grow: 0.8;
+    height: auto;
+  }
 }
 
-.centrik{
-  padding-top: 5px;
-  display: flex;
-  position: relative;
-  justify-content: center;
-}
-.count{
-  position: absolute;
-  right: 5px;
-  font-size: 11px;
-  color: gray;
+.centerAdd{
+  @include addGalImg;
 }
 
-.last{
-  max-height: 35%;
+.lastImage{
+  @include add-gal-img-plus;
 }
+
 .categories{
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  @include allCategories;
 }
 img{
   width: 100%;
   max-height: 75%;
 }
-.name{
-  margin: 0;
-  text-align: center;
-  color: gray;
-}
-
-
-.category:hover{
-  transform: scale(1.1); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+.addCategory{
+  @include add-gal-img-name
 }
 
 .newCategory{
-  border: 2px solid gainsboro;
-  border-radius: 5px;
-  width: 12em;
-  height: 10em;
   position: relative;
   display: flex;
-  margin: 10px 10px 10px 0;
+}
+.newCategory:hover {
+  transform: scale(1.1);
+  transition: 0.3s;
 }

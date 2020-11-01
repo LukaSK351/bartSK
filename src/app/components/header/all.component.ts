@@ -1,41 +1,67 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterContentInit, AfterViewChecked, ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {DataService} from '../../data/data.service';
 
 @Component({
   selector: 'app-all',
   templateUrl: './all.component.html',
   styleUrls: ['./all.component.scss'],
   animations: [
-    trigger('openClose', [
+    trigger('dataChange', [
 
-      state('true', style({
+      state('entering', style({
+        opacity: 0.6
+      })),
+      state('done',   style({
         opacity: 1
       })),
-      state('false',   style({
-        opacity: 0
-      })),
-      transition('false <=> true', animate('200ms')),
+      transition('entering <=> done', animate('150ms')),
     ])
   ]
 })
-export class AllComponent implements OnInit {
+export class AllComponent implements OnInit, AfterContentInit, AfterViewChecked {
   @Input() vkladamSrc: string;
   src: string;
 
-  isOpen = true;
-
-  constructor() { }
+  imageState: 'entering' | 'done' = 'done';
+  constructor(private cdRef: ChangeDetectorRef, private dataService: DataService) { }
 
   ngOnInit(): void {
+
+  }
+
+  ngAfterContentInit ()
+  {
+    this.dataService.currentImage.subscribe(img => {
+      if (img !== 'empty')
+      this.onChageneSrc(img);
+    });
+
   }
 
   onChageneSrc(src: string){
+    this.cdRef.detectChanges();
+
     if (src === this.src){
       return;
     }else{
+      if (this.imageState !== 'entering'){
+        console.log(this.imageState)
+
+        this.imageState = 'entering';
+      }
+
     this.src = src;
-    document.getElementById('header').style.backgroundImage = 'url(' + src;
+      setTimeout(function () {
+        document.getElementById('header').style.backgroundImage = 'url(' + src;
+
+      }, 150);
   }
+  }
+
+
+  ngAfterViewChecked(): void {
+
   }
 
 

@@ -1,37 +1,37 @@
-<header >
-  <div id="imagee"></div>
-</header>
 <body id="wrapper">
-  <h1>Fotogaleria </h1>
+  <h1 class="headerName">FOTOGALÉRIA</h1>
   <h2 class="header-end">
     <img [routerLink]="['/']" class="back" src="assets/icons/back.svg" alt="Italian Trulli">
-    <p class="kategoria">{{this.category}}</p>
+    <p class="categoryName">{{this.category}}</p>
   </h2>
 
   <div id="firstElement" class="categories">
-    <div *ngFor="let photo of this.photos" class="category">
-      <app-the-image [fromCategory]="true" [imagesInGallery]="photo" [category]="this.category" ></app-the-image>
+    <div *ngFor="let photo of this.photos; let i = index" class="category">
+      <app-the-image [indexOfImage]="i" [fromCategory]="true" [imagesInGallery]="photo" [category]="this.category" ></app-the-image>
     </div>
 
     <div (click)="openAddFileDialog()" class="category">
-      <div class="center">
-        <img class="last" src="assets/icons/plusIcon.svg" alt="Italian Trulli">
-        <p class="name">Pridat fotku</p>
+      <div class="centerAdd">
+        <img class="last" src="assets/icons/add_photo.svg" alt="Italian Trulli">
+        <p class="name">PRIDAŤ FOTKY</p>
       </div>
     </div>
   </div>
 
-  <footer style="color: gray">
-    webdesign.bart.sk
-  </footer>
   </body>
 
-  <div (click)="close()" onclick="this.style.display='none'" id="overlay" class="container">
+  <div (click)="close()" onclick="this.style.display='none'" id="overlay" class="overlayContainer">
     <!-- Close the image -->
-    <span (click)="close()" onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
 
     <!-- Expanded image -->
-    <img id="expandedImg">
+    <div class="expandedImgWrapper">
+      <div class="close closebtn">
+        <span class="xButton">&times;</span>
+        <p (click)="close()" onclick="this.parentElement.style.display='none'" class="zavrietButton"> ZAVRIEŤ</p>
+      </div>
+
+      <img id="expandedImg">
+  </div>
 
     <!-- Image text -->
     <div id="imgtext"></div>

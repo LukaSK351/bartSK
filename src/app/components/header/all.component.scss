@@ -1,18 +1,24 @@
-#header{
-  //background-image: url("src/assets/gallery/food-salad-healthy-lunch.jpg");
+#header::after{
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  display: block;
+  position: absolute;
+  width: 100%; height: 100%;
+  content: "";
+}
 
-  //background-image: url("./assets/gallery/food-salad-healthy-lunch.jpg");
+.background{
+  position: relative;
+}
+
+#header{
   background-color: white; /* Used if the image is unavailable */
   height: 250px; /* You must set a specified height */
+  width: 95.27%;
   background-position: center; /* Center the image */
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
   background-size: cover;
   position: relative;
-  //opacity: 0.5;
-  filter: blur(8px) brightness(60%);
-}
-header{
-
+  opacity: 0.5;
+  filter: brightness(80%);
+  transform: scale(1.1);
 }

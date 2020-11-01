@@ -1,18 +1,20 @@
-<div class="wrapper-category" *ngIf="fromCategory != true">
-  <div class="imageWrapper">
-<img class="imageInGalleries" *ngIf="!loading" (mouseenter)="onMouseMove($event)" class="toto" routerLink="/gallery/{{gallery.path}}"
-     src="{{this.image}}" alt="Italian Trulli">
-  <img style="width: 5em" class="loading" *ngIf="loading" src="./assets/icons/loading.svg" alt="Italian Trulli">
-  </div>
-<div class="centrik">
-  <p class="name">{{gallery.name}} </p>
-  <p class="count" *ngIf="this.dataService.getPhotosToCattegoryCount(gallery.label) > 1">
-    fotografie: {{this.dataService.getPhotosToCattegoryCount(gallery.label)}}
-  </p>
-</div>
-</div>
-<div id="firstElement" class="categories" *ngIf="fromCategory == true">
+  <div class="wrapper-category toto" (mouseenter)="onMouseMove()" *ngIf="fromCategory != true">
+    <div class="imageWrapper">
+      <img class="imageInGalleries" *ngIf="!loading"   routerLink="/gallery/{{gallery.path}}"
+         src="{{this.image}}" alt="Italian Trulli">
+      <img style="width: 5em" class="loading" *ngIf="loading" src="./assets/icons/loading.svg" alt="Italian Trulli">
+    </div>
 
-  <img  class="imageInCategory" *ngIf="!loading" (click)="showImage(this.image)" src="{{this.image}}" alt="Italian Trulli">
-  <img style="width: 5em" class="loading" *ngIf="loading" src="./assets/icons/loading.svg" alt="Italian Trulli">
-</div>
+    <div class="centerName">
+      <p class="name">{{gallery.name}} </p>
+      <p class="count">
+        {{this.numberOfImages}}  {{this.declension()}}
+      </p>
+    </div>
+  </div>
+
+  <!--v kategorii-->
+  <div  class="images" *ngIf="fromCategory == true">
+    <img id="{{this.indexOfImage}}"   class="imageInCategory" *ngIf="!loading" (click)="showImage(this.image)" src="{{this.image}}" alt="Italian Trulli">
+    <img style="width: 5em" class="loading" *ngIf="loading" src="./assets/icons/loading.svg" alt="Italian Trulli">
+  </div>

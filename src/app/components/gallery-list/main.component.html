@@ -1,22 +1,19 @@
-
 <body>
-  <h1>Fotogaleria</h1>
+  <h1 class="headerName">FOTOGALÉRIA</h1>
   <h2 class="header-end">KATEGÓRIE</h2>
   <div id="firstMan" class="categories">
     <div *ngFor="let gallery of galleries"  class="category">
-      <app-the-image [gallery]="gallery" (imageSrc)="sendImageToHeader($event)"></app-the-image>
+      <app-the-image [gallery]="gallery"></app-the-image>
     </div>
 
       <div (click)="openAddFileDialog()" class="newCategory category">
-         <div class="center">
-          <img class="last" src="../../../assets/icons/plusIcon.svg" alt="Italian Trulli">
-           <p class="name">Pridat kategoriu</p>
+         <div class="centerAdd">
+          <img class="lastImage" src="../../../assets/icons/plusIcon.svg" alt="Italian Trulli">
+           <p class="addCategory">PRIDAŤ KATEGÓRIU</p>
           </div>
       </div>
-  </div>
 
-  <footer class="footer" >
-    webdesign.bart.sk
-  </footer>
+
+  </div>
 </body>
 

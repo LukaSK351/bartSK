@@ -1,4 +1,3 @@
 <header >
-  <div [@openClose]="isOpen ? true : false" id="header"></div>
+  <body [@dataChange]="imageState" (@dataChange.done)="imageState = 'done'" class="background"  id="header"></body>
 </header>
-<app-main (imageSrc)="onChageneSrc($event)"></app-main>
