@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {AfterViewChecked, Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {DataService} from '../../data/data.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import {MatDialogComponent} from '../mat-dialog/mat-dialog.component';
@@ -29,13 +29,9 @@ export class MainComponent implements OnInit {
     });
   }
 
-  sendImageToHeader(image){
-    this.imageSrc.emit(image);
-  }
-
   openAddFileDialog() {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.width = '23em';
+    dialogConfig.width = '35em';
     const dialogRef = this.dialog.open(MatDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(value => {
       if (value === undefined){

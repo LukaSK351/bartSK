@@ -1,11 +1,8 @@
-<header >
-  <div id="imagee"></div>
-</header>
 <body id="wrapper">
-  <h1>Fotogaleria </h1>
+  <h1 class="headerName">FOTOGALÉRIA</h1>
   <h2 class="header-end">
     <img [routerLink]="['/']" class="back" src="assets/icons/back.svg" alt="Italian Trulli">
-    <p class="kategoria">{{this.category}}</p>
+    <p class="categoryName">{{this.category}}</p>
   </h2>
 
   <div id="firstElement" class="categories">
@@ -14,17 +11,16 @@
     </div>
 
     <div (click)="openAddFileDialog()" class="category">
-      <div class="center">
-        <img class="last" src="assets/icons/plusIcon.svg" alt="Italian Trulli">
-        <p class="name">Pridat fotku</p>
+      <div class="centerAdd">
+        <img class="last" src="assets/icons/add_photo.svg" alt="Italian Trulli">
+        <p class="name">PRIDAŤ FOTKY</p>
       </div>
     </div>
   </div>
 
-  <app-footer></app-footer>
   </body>
 
-  <div (click)="close()" onclick="this.style.display='none'" id="overlay" class="container">
+  <div (click)="close()" onclick="this.style.display='none'" id="overlay" class="overlayContainer">
     <!-- Close the image -->
 
     <!-- Expanded image -->

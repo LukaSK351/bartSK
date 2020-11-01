@@ -1,19 +1,7 @@
 @import "../../styles/shared/variables";
-body{
-  width: 80%;
-  margin: 0 auto;
-  position: absolute;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: -12em;
-  left: 0;
-  right: 0;
-  color: white;
-}
+
 .wrapper-category{
-  //border: 2px solid gainsboro;
   border-radius: 5px;
-  //width: 12em;
   height: 100%;
   position: relative;
   display: flex;
@@ -21,34 +9,18 @@ body{
   transition: 0.3s;
 }
 
+
 .wrapper-image{
-  //border: 2px solid gainsboro;
   border-radius: 5px;
   width: 12em;
   height: 10em;
 }
-.header-end{
-  border-bottom: 1px solid white;
-  font-size: 1em;
-  font-weight: 400;
-}
-.category{
-  width: 200px;
-  height: 140px;
-  margin: 10px 10px 10px 0;
-  transition: 0.3s;
-}
-.center{
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
 
-.centrik{
+
+.centerName{
   border: 2px solid gainsboro;
-  border-bottom-right-radius: 3px;
-  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
   border-top: none;
   display: flex;
   height: 100%;
@@ -57,12 +29,13 @@ body{
 
 }
 .count{
-  font-size: 11px;
+  font-size: 14px;
   color: $color-gray-info;
   display: none;
   visibility: visible;
   align-self: center;
   transition: 0.3s;
+  margin-top: 2px;
 }
 .imageWrapper{
   display: flex;
@@ -79,36 +52,42 @@ body{
 .last{
   max-height: 35%;
 }
-.categories{
+
+.images{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   height: 100%;
 
 }
-img{
+//img{
+//  width: 100%;
+//  //max-height: 75%;
+//  margin-top: 0px;
+//  //border-radius: 3px;
+//  border-top-right-radius: 3px;
+//  border-top-left-radius: 3px;
+//}
+.imageInCategory{
+  width: 100%;
+  max-height: 100%;
+  border-radius: 5px;
+  object-fit: cover;
+
+}
+.imageInGalleries{
   width: 100%;
   //max-height: 75%;
   margin-top: 0px;
   //border-radius: 3px;
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
+  object-fit: cover;
 }
-.imageInCategory{
-  width: 100%;
-  max-height: 100%;
-  border-radius: 5px;
-}
-//.imageInGalleries{
-//
-//  width: 100%;
-//  max-height: 100%;
-//}
 
 .name{
   margin: 0;
   text-align: center;
-  //color: $color-gray-name;
   font:{
     weight: 600;
     size: 0.9em;
@@ -119,7 +98,7 @@ img{
 
 
 .wrapper-category:hover{
-  transform: scale(1.05); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  transform: scale(1.05);
   .imageWrapper{
     height: 60%;
   }

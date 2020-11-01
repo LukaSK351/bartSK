@@ -3,6 +3,7 @@ import {DataService} from '../../data/data.service';
 import {Gallery} from '../../model/gallery';
 import {GalleryService} from '../../services/gallery.service';
 import {DomSanitizer} from '@angular/platform-browser';
+import {take} from 'rxjs/operators';
 
 @Component({
   selector: 'app-the-image',
@@ -24,16 +25,23 @@ export class TheImageComponent implements OnInit {
 
   ngOnInit(): void {
 
-    if (this.gallery != undefined && this.gallery.image != undefined && this.fromCategory != true) {
-      console.log("som v gallerylist")
-      // console.log(this.gallery);
-      this.galleryService.getImage(400, 0, this.gallery.image.fullpath).subscribe(data => {
+    if (this.gallery !== undefined && this.gallery.image !== undefined && this.fromCategory !== true) {
+      this.galleryService.getImage(250, 0, this.gallery.image.fullpath).subscribe(data => {
         const reader = new FileReader();
 
         reader.addEventListener('load', () => {
           this.loading = false;
           this.image = reader.result;
-          this.imageSrc.emit(this.image);
+          // if (document.getElementById('header').getAttribute('style').slice(-4) == '"");'){
+          this.dataService.currentImage.pipe(take(1)).subscribe(img => {
+            // console.log(img);
+            if (img === 'empty'){
+              this.imageSrc.emit(this.image);
+              this.dataService.changeHeaderImg(this.image);
+            }
+          });
+
+          // }
         });
 
         if (data) {
@@ -41,13 +49,13 @@ export class TheImageComponent implements OnInit {
         }
       });
       this.galleryService.getCountOfImagesFromGallery(this.gallery.path).subscribe(gallery => {
-        console.log(gallery.images)
+        // @ts-ignore
         this.numberOfImages = gallery.images.length;
-      })
+      });
     }
-    else if (this.fromCategory == true){
+    else if (this.fromCategory === true){
 
-      this.galleryService.getImage(200, 0, this.imagesInGallery.fullpath).subscribe(data => {
+      this.galleryService.getImage(700, 0, this.imagesInGallery.fullpath).subscribe(data => {
           const reader = new FileReader();
           reader.addEventListener('load', () => {
             this.loading = false;
@@ -67,16 +75,14 @@ export class TheImageComponent implements OnInit {
   }
 
   showImage(src){
-    const wrapper = document.getElementById('wrapper');
-    wrapper.style.opacity = '0.5';
     const expandImg = document.getElementById('expandedImg');
     expandImg.setAttribute('src', src);
     expandImg.setAttribute('alt', this.indexOfImage);
     document.getElementById('overlay').style.display = 'flex';
-
   }
+
   onMouseMove(){
-      this.imageSrc.emit(this.image);
+    this.dataService.changeHeaderImg(this.image);
   }
 
   declension(){

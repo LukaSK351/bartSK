@@ -17,7 +17,7 @@ export class GalleryService {
   }
 
   getImage(width, height, fullPath) {
-    return this.http.get(this.apiUrl + '/images/0x0/' + fullPath, {responseType: 'blob'});
+    return this.http.get(this.apiUrl + '/images/' + width + 'x' + height + '/' +  fullPath, {responseType: 'blob'});
   }
 
   addImage(file: File, category){

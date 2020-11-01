@@ -1,10 +1,17 @@
 import { Injectable } from '@angular/core';
 import {Gallery} from '../model/gallery';
+import {BehaviorSubject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
+
+  private imageSource = new BehaviorSubject<string>('empty');
+  currentImage = this.imageSource.asObservable();
+
+
+
 
   katerogie: Gallery[] = [
     {
@@ -37,6 +44,11 @@ export class DataService {
   ];
 
   constructor() { }
+
+  changeHeaderImg(message: any) {
+    // console.log(message)
+    this.imageSource.next(message);
+  }
 
   galleries(): Gallery[]{
     return this.katerogie;

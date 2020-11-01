@@ -45,30 +45,6 @@ export class MatDialogComponent{
     }
   }
 
-  selectFileHttp(event) {
-    if (!event.target.files[0] || event.target.files[0].length === 0) {
-      this.msg = 'You must select an image';
-      return;
-    }
-
-    const mimeType = event.target.files[0].type;
-
-    if (mimeType.match(/image\/*/) == null) {
-      this.msg = 'Only images are supported';
-      return;
-    }
-
-    for (let i = 0; i < event.target.files.length; i++){
-      const reader = new FileReader();
-      reader.readAsDataURL(event.target.files[i]);
-      this.urlFiles.push(event.target.files[i]);
-      reader.onload = (_event) => {
-        this.msg = '';
-        this.url.push(reader.result);
-      };
-    }
-  }
-
   close() {
     this.dialogRef.close(this.cattegory.value);
   }
@@ -91,27 +67,21 @@ export class MatDialogComponent{
       this.urlFiles.push(event[i]);
       reader.onload = (_event) => {
         this.msg = '';
-        // this.url.push(reader.result);
       };
     }
   }
 
-  pridja(){
+  add(){
     if (this.url === undefined){
       this.dialogRef.close();
       return;
     }
     for (let i = 0; i < this.url.length; i++){
-      const photo = {
-        label: this.data,
-        icon: this.url[i],
-      };
-
       // @ts-ignore
       this.files = document.getElementById('fileDropRef').files;
 
-      for (let i = 0;  i < this.finalFiles.length; i++){
-          this.galleryService.addImage(this.finalFiles[i], this.data);
+      for (let j = 0;  j < this.finalFiles.length; j++){
+          this.galleryService.addImage(this.finalFiles[j], this.data);
       }
     }
     this.dialogRef.close(this.finalFiles);

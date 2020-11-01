@@ -6,7 +6,7 @@ import {AllComponent} from './components/header/all.component';
 
 
 const routes: Routes = [
-  { path: '', component: AllComponent },
+  { path: '', component: MainComponent },
   { path: 'gallery', children: [
       {path: ':', component: ImageListComponent}
     ]

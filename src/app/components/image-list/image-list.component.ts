@@ -44,17 +44,13 @@ export class ImageListComponent implements OnInit, AfterViewChecked {
       this.photos = this.photos.images;
     });
   }
-
   ngAfterViewChecked(){
     if (this.photos.length === 0){
-      document.getElementById('imagee').style.backgroundImage = 'url(\'assets/gallery/no-image.jpg\')';
+      return;
     }else{
       const firstImage = document.getElementById('0');
-      const header = document.getElementById('imagee');
-      const srcfirstImage = firstImage.src.split('/')[firstImage.src.split('/').length - 1];
-      if (srcfirstImage !== 'loading.svg') {
-        header.style.backgroundImage = 'url(' + firstImage.getAttribute('src');
-        this.url = firstImage.getAttribute('src');
+      if (firstImage != null) {
+      this.dataService.changeHeaderImg(firstImage.getAttribute('src'));
       }
     }
   }
@@ -80,17 +76,16 @@ export class ImageListComponent implements OnInit, AfterViewChecked {
   openAddFileDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = this.category;
-    dialogConfig.height = '400px';
+    dialogConfig.minHeight = '400px';
+    dialogConfig.height = 'auto';
     const dialogRef = this.dialog.open(MatDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(value => {
       if (value === undefined){
         return;
       }else {
-
         if (value.length > 1) {
           setTimeout(() => {
             for (let i = 0;  i < value.length; i++){
-
               const imageType = value[i].name.split('.').pop();
               let jpegToJpg;
 
@@ -106,6 +101,9 @@ export class ImageListComponent implements OnInit, AfterViewChecked {
                 fullpath: this.category + '/' + jpegToJpg,
               };
               this.photos.push(image);
+              const firstImage = document.getElementById('0');
+              this.url = firstImage.getAttribute('src');
+              this.dataService.changeHeaderImg(firstImage.getAttribute('src'));
             }
           }, 2000);
 

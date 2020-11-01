@@ -1,9 +1,10 @@
+@import "./../../styles/shared/variables";
 .container {
   width: 450px;
   height: 200px;
   padding: 2rem;
   text-align: center;
-  border: dashed 2px #979797;
+  border: dashed 2px $color-gray-info;;
   position: relative;
   margin: 0 auto;
 
@@ -18,43 +19,66 @@
   }
 
   label {
-    color: gray;
+    color: $color-gray-info ;
     width: 183px;
     height: 44px;
     border-radius: 2px;
-    //background-color: #db202f;
-    border: 2px solid gray;
-    padding: 8px 16px;
+    border: 2px solid $color-gray-info;
+    padding: 8px 25px;
   }
 
   h3 {
-    font-size: 20px;
     font-weight: 600;
-    color: #38424c;
+    color: $color-gray-info;
+    font-size: 17px;
   }
 }
+.image{
+  filter: invert(69%) sepia(7%) saturate(0%) hue-rotate(146deg) brightness(95%) contrast(87%);
+  width: 10%;
+}
+
+.movePhotos{
+  color: $color-gray-info;
+}
+.container{
+  color: $color-gray-info;
+}
 mat-form-field{
-  width: 70%;
+  width: 100%;
+}
+
+.placeholder{
+  font-size: 13px;
+  color: $color-gray-info;
+  margin-bottom: 10px;
+}
+
+span{
+  font-size: 22px;
+  margin: {
+    right: 7px;
+  };
 }
 
 button{
   background: rgba(46, 204, 113, 1);
-  padding: 9px 19px;
+  padding: 5px 20px;
   margin-top: 5px;
   border-radius: 4px;
   border: none;
   color: white;
   position: absolute;
   right: 0px;
-  bottom: 0px;
+  bottom: 25px;
+  display: flex;
+  align-items: center;
 }
 .header{
   font-size: 1em;
   color: gray;
 }
-mat-dialog{
 
-}
 
 input::placeholder{
   font-size: 2px;
@@ -64,6 +88,7 @@ input::placeholder{
   animation: shake 1s;
   animation-iteration-count: infinite;
 }
+
 
 .files-list {
   margin-top: 1.5rem;
@@ -109,6 +134,7 @@ input::placeholder{
 .header-add{
   margin-top: 0;
   font-size: 1.3em;
+  color: $color-gray-name;
 }
 .addButton{
   bottom: -10px;
