@@ -14,11 +14,10 @@
 #header{
   background-color: white; /* Used if the image is unavailable */
   height: 250px; /* You must set a specified height */
-  width: 95.27%;
+  width: 100%;
   background-position: center; /* Center the image */
   background-size: cover;
   position: relative;
   opacity: 0.5;
   filter: brightness(80%);
-  transform: scale(1.1);
 }

@@ -19,7 +19,7 @@ export class TheImageComponent implements OnInit {
   @Input() imagesInGallery;
   numberOfImages: number;
   @Input() indexOfImage;
-  loading: boolean = true;
+  loading = true;
 
   constructor(public dataService: DataService, private galleryService: GalleryService, private sanitizer: DomSanitizer) { }
 
@@ -32,16 +32,12 @@ export class TheImageComponent implements OnInit {
         reader.addEventListener('load', () => {
           this.loading = false;
           this.image = reader.result;
-          // if (document.getElementById('header').getAttribute('style').slice(-4) == '"");'){
           this.dataService.currentImage.pipe(take(1)).subscribe(img => {
-            // console.log(img);
             if (img === 'empty'){
               this.imageSrc.emit(this.image);
               this.dataService.changeHeaderImg(this.image);
             }
           });
-
-          // }
         });
 
         if (data) {

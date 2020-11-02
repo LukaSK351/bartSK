@@ -26,7 +26,6 @@ export class GalleryService {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'multipart/form-data; boundary=--boundary',
-        // Authorization: 'my-auth-token'
       })
     };
 

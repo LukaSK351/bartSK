@@ -10,7 +10,7 @@
 .category{
   @include category
 }
-@media only screen and (max-width: 694px) {
+@media only screen and (max-width: 735px) {
   .category{
     flex-grow: 0.8;
     height: auto;

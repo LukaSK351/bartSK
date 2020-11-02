@@ -1,6 +1,6 @@
-  <div class="wrapper-category toto" (mouseenter)="onMouseMove()" *ngIf="fromCategory != true">
+  <div routerLink="/gallery/{{gallery.path}}" class="wrapper-category toto" (mouseenter)="onMouseMove()" *ngIf="fromCategory != true">
     <div class="imageWrapper">
-      <img class="imageInGalleries" *ngIf="!loading"   routerLink="/gallery/{{gallery.path}}"
+      <img class="imageInGalleries" *ngIf="!loading"
          src="{{this.image}}" alt="Italian Trulli">
       <img style="width: 5em" class="loading" *ngIf="loading" src="./assets/icons/loading.svg" alt="Italian Trulli">
     </div>
