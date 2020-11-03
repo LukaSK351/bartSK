@@ -1,3 +1,5 @@
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
 body{
   width: 78%;
   margin: 0 auto;
@@ -9,4 +11,14 @@ body{
   right: 0;
   color: white;
   height: auto;
+}
+.cdk-overlay-pane.my-dialog {
+  position: relative!important;
+}
+.my-dialog {
+  position: relative!important;
+}
+
+#cdk-overlay-0{
+  position: relative;
 }

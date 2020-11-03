@@ -1,4 +1,7 @@
-  <div style="position: relative" class="cat-container" *ngIf="!this.data">
+<p class="closeButton">X Zavriet</p>
+<button mat-button class="closeButton">X Zavriet</button>
+
+<div style="position: relative" class="cat-container" *ngIf="!this.data">
     <h1 class="header">PRIDAŤ KATEGÓRIU</h1>
     <mat-form-field >
       <input matInput
@@ -11,6 +14,7 @@
   </div>
 
   <div *ngIf="this.data">
+    <div class="inputWrapper">
     <h1 class="header-add">PRIDAŤ FOTKY</h1>
     <div class="container" appDnd id="fileDropRef2" (fileDropped)="onFileDropped($event)">
       <input type="file" #fileDropRef id="fileDropRef" multiple (change)="selectFile($event)" />
@@ -20,7 +24,7 @@
       <h3 class="movePhotos">alebo</h3>
         <label class="chooseFiles" for="fileDropRef">VYBERTE SÚBORY</label>
     </div>
-
+    </div>
     <div style="position: relative" class="files-list">
       <div class="single-file" *ngFor="let file of this.urlFiles; let i = index">
         <div class="file-icon" style="width: 50px">

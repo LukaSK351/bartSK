@@ -1,6 +1,6 @@
 @import "./../../styles/shared/variables";
 .container {
-  width: 450px;
+  width: initial;
   height: 200px;
   padding: 2rem;
   text-align: center;
@@ -61,27 +61,19 @@ span{
   };
 }
 
-button{
-  background: rgba(46, 204, 113, 1);
-  padding: 5px 20px;
-  margin-top: 5px;
-  border-radius: 4px;
-  border: none;
-  color: white;
-  position: absolute;
-  right: 0px;
-  bottom: 25px;
-  display: flex;
-  align-items: center;
-}
+
 .header{
-  font-size: 1em;
-  color: gray;
+  font-size: 1.5em;
+  color: $color-gray-name;
+  font-weight: 500;
 }
 
+.inputWrapper{
+  width: 100%;
+}
 
 input::placeholder{
-  font-size: 2px;
+  font-size: 3px;
 }
 
 .fileover {
@@ -91,7 +83,7 @@ input::placeholder{
 
 
 .files-list {
-  margin-top: 1.5rem;
+  margin-top: 4rem;
 
   .single-file {
     display: flex;
@@ -99,7 +91,7 @@ input::placeholder{
     justify-content: space-between;
     align-items: center;
 
-    margin-bottom: 1rem;
+
 
     img.delete {
       margin-left: 0.5rem;
@@ -135,10 +127,33 @@ input::placeholder{
   margin-top: 0;
   font-size: 1.3em;
   color: $color-gray-name;
+  margin-bottom: 27px;
 }
 .addButton{
-  bottom: -10px;
-  margin-bottom: -13px;
+  bottom: 0px;
+  background: rgba(46, 204, 113, 1);
+  padding: 7px 23px;
+  margin-top: 5px;
+  border-radius: 4px;
+  border: none;
+  color: white;
+  position: absolute;
+  right: 0px;
+  bottom: 25px;
+  display: flex;
+  align-items: center;
+  font-size: 17px;
+}
+.closeButton{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.cdk-overlay-pane.my-dialog {
+  position: relative!important;
+}
+.my-dialog{
+  position: relative!important;
 }
 
 /* Shake animation */

@@ -76,9 +76,13 @@ export class ImageListComponent implements OnInit, AfterViewChecked {
   openAddFileDialog() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = this.category;
-    dialogConfig.minHeight = '400px';
+    dialogConfig.width = '650px';
+    dialogConfig.minHeight = '430px';
     dialogConfig.height = 'auto';
+    dialogConfig.panelClass = 'my-dialog';
     const dialogRef = this.dialog.open(MatDialogComponent, dialogConfig);
+    console.log(    document.getElementById('cdk-overlay-0'));
+    document.getElementById('cdk-overlay-0').style.position = 'absolute';
     dialogRef.afterClosed().subscribe(value => {
       if (value === undefined){
         return;
