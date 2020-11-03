@@ -69,3 +69,17 @@
   color: $color-gray-info;
   font-weight: 500;
 }
+
+@mixin button-add($value){
+  background: rgba(46, 204, 113, 1);
+  padding: 7px 20px;
+  margin-top: 5px;
+  border-radius: 4px;
+  border: none;
+  color: white;
+  position: absolute;
+  right: 0;
+  bottom: $value;
+  display: flex;
+  align-items: center;
+}

@@ -34,10 +34,12 @@ export class MatDialogComponent{
       return;
     }
     this.finalFiles = event.target.files;
+    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < event.target.files.length; i++){
       const reader = new FileReader();
       reader.readAsDataURL(event.target.files[i]);
       this.urlFiles.push(event.target.files[i]);
+      // tslint:disable-next-line:variable-name
       reader.onload = (_event) => {
       this.msg = '';
       this.url.push(reader.result);
@@ -61,10 +63,12 @@ export class MatDialogComponent{
     }
     this.url = event;
     this.finalFiles = event;
+    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < event.length; i++){
       const reader = new FileReader();
       reader.readAsDataURL(event[i]);
       this.urlFiles.push(event[i]);
+      // tslint:disable-next-line:variable-name
       reader.onload = (_event) => {
         this.msg = '';
       };
@@ -76,10 +80,12 @@ export class MatDialogComponent{
       this.dialogRef.close();
       return;
     }
+    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.url.length; i++){
       // @ts-ignore
       this.files = document.getElementById('fileDropRef').files;
 
+      // tslint:disable-next-line:prefer-for-of
       for (let j = 0;  j < this.finalFiles.length; j++){
           this.galleryService.addImage(this.finalFiles[j], this.data);
       }

@@ -26,7 +26,7 @@ export class TheImageComponent implements OnInit {
   ngOnInit(): void {
 
     if (this.gallery !== undefined && this.gallery.image !== undefined && this.fromCategory !== true) {
-      this.galleryService.getImage(250, 0, this.gallery.image.fullpath).subscribe(data => {
+      this.galleryService.getImage(300, 0, this.gallery.image.fullpath).subscribe(data => {
         const reader = new FileReader();
 
         reader.addEventListener('load', () => {

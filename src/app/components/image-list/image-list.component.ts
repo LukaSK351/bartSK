@@ -38,14 +38,13 @@ export class ImageListComponent implements OnInit, AfterViewChecked {
     const pageURL = window.location.href;
     const lastURLSegment = pageURL.substr(pageURL.lastIndexOf('/') + 1);
     this.category = lastURLSegment;
-    this.photos = this.dataService.getPhotosToCattegory(this.category);
     this.galleryService.getImagesFromGallery(this.category).subscribe(images => {
       this.photos = images;
       this.photos = this.photos.images;
     });
   }
   ngAfterViewChecked(){
-    if (this.photos.length === 0){
+    if (this.photos === undefined || this.photos.length === 0){
       return;
     }else{
       const firstImage = document.getElementById('0');
@@ -81,14 +80,13 @@ export class ImageListComponent implements OnInit, AfterViewChecked {
     dialogConfig.height = 'auto';
     dialogConfig.panelClass = 'my-dialog';
     const dialogRef = this.dialog.open(MatDialogComponent, dialogConfig);
-    console.log(    document.getElementById('cdk-overlay-0'));
-    document.getElementById('cdk-overlay-0').style.position = 'absolute';
     dialogRef.afterClosed().subscribe(value => {
       if (value === undefined){
         return;
       }else {
         if (value.length > 1) {
           setTimeout(() => {
+            // tslint:disable-next-line:prefer-for-of
             for (let i = 0;  i < value.length; i++){
               const imageType = value[i].name.split('.').pop();
               let jpegToJpg;

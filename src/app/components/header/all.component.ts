@@ -30,11 +30,11 @@ export class AllComponent implements OnInit, AfterContentInit, AfterViewChecked 
 
   }
 
-  ngAfterContentInit ()
-  {
+  ngAfterContentInit() {
     this.dataService.currentImage.subscribe(img => {
-      if (img !== 'empty')
+      if (img !== 'empty') {
       this.onChageneSrc(img);
+      }
     });
 
   }
@@ -46,15 +46,12 @@ export class AllComponent implements OnInit, AfterContentInit, AfterViewChecked 
       return;
     }else{
       if (this.imageState !== 'entering'){
-        console.log(this.imageState)
-
         this.imageState = 'entering';
       }
 
-    this.src = src;
+      this.src = src;
       setTimeout(function () {
         document.getElementById('header').style.backgroundImage = 'url(' + src;
-
       }, 150);
   }
   }

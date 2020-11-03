@@ -42,16 +42,6 @@ export class MainComponent implements OnInit {
     });
   }
 
-  addCategory(name){
-      if (name === ''){
-        return;
-      }
-      const newCategory = {
-      label: name,
-        icon: 'assets/gallery/no-image.jpg',
-       };
-      this.dataService.addCategory(newCategory);
-  }
 
   async addHttpCategory(nameOfCategory){
     if (nameOfCategory === ''){
