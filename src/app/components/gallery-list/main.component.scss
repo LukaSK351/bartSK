@@ -8,12 +8,19 @@
   @include header-end;
 }
 .category{
-  @include category
+  @include category;
+}
+.newCategory{
+  @include category;
 }
 @media only screen and (max-width: 735px) {
   .category{
-    flex-grow: 0.8;
+    flex-grow: 0.6;
     height: auto;
+  }
+  .newCategory{
+    flex-grow: 0.6;
+    max-height: 13em;
   }
 }
 
