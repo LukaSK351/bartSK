@@ -4,6 +4,9 @@ import {Gallery} from '../../model/gallery';
 import {GalleryService} from '../../services/gallery.service';
 import {DomSanitizer} from '@angular/platform-browser';
 import {take} from 'rxjs/operators';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {MatDialogComponent} from '../mat-dialog/mat-dialog.component';
+import {DeleteDialogComponent} from '../dialogs/delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-the-image',
@@ -20,8 +23,10 @@ export class TheImageComponent implements OnInit {
   numberOfImages: number;
   @Input() indexOfImage;
   loading = true;
+  @Output() deleteGalleryName = new EventEmitter<string>();
 
-  constructor(public dataService: DataService, private galleryService: GalleryService, private sanitizer: DomSanitizer) { }
+  constructor(private dialog: MatDialog, public dataService: DataService,
+              private galleryService: GalleryService, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
 
@@ -68,6 +73,33 @@ export class TheImageComponent implements OnInit {
       this.loading = false;
       this.image = 'assets/gallery/no-image.jpg';
     }
+  }
+
+  deleteGallery(){
+      const dialogConfig = new MatDialogConfig();
+      // dialogConfig.width = '35em';
+      const dialogRef = this.dialog.open(DeleteDialogComponent, dialogConfig);
+      dialogRef.afterClosed().subscribe(value => {
+        if (value === 'delete'){
+          this.galleryService.deleteGallery(this.gallery.path).subscribe(response => {
+            console.log(response);
+            // @ts-ignore
+            if (response.status === 'ok'){
+                this.deleteGalleryName.emit(this.gallery.path);
+            }
+          });
+        }else {
+            return;
+        }
+      });
+
+
+    // this.galleryService.deleteGallery(this.gallery.path).subscribe(response => {
+    //   console.log(response);
+    //   if (response.status === 'ok'){
+    //       this.deleteGalleryName.emit(this.gallery.path);
+    //   }
+    // });
   }
 
   showImage(src){

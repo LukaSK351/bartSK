@@ -1,11 +1,12 @@
-  <div routerLink="/gallery/{{gallery.path}}" class="wrapper-category toto" (mouseenter)="onMouseMove()" *ngIf="fromCategory != true">
+  <div class="wrapper-category toto" (mouseenter)="onMouseMove()" *ngIf="fromCategory != true">
     <div class="imageWrapper">
-      <img class="imageInGalleries" *ngIf="!loading"
+      <p (click)="deleteGallery()" class="deleteImage">X</p>
+      <img routerLink="/gallery/{{gallery.path}}" class="imageInGalleries" *ngIf="!loading"
          src="{{this.image}}" alt="Italian Trulli">
       <img style="width: 5em" class="loading" *ngIf="loading" src="./assets/icons/loading.svg" alt="Italian Trulli">
     </div>
 
-    <div class="centerName">
+    <div routerLink="/gallery/{{gallery.path}}" class="centerName">
       <p class="name">{{gallery.name}} </p>
       <p class="count">
         {{this.numberOfImages}}  {{this.declension()}}

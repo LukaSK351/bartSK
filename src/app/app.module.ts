@@ -16,7 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AllComponent } from './components/header/all.component';
 import { TheImageComponent } from './components/the-image/the-image.component';
-
+import {DeleteDialogComponent} from './components/dialogs/delete-dialog/delete-dialog.component';
 import { ToastrModule } from 'ngx-toastr';
 import { FooterComponent } from './components/footer/footer.component';
 
@@ -25,11 +25,13 @@ import { FooterComponent } from './components/footer/footer.component';
     AppComponent,
     MainComponent,
     MatDialogComponent,
+    DeleteDialogComponent,
     ImageListComponent,
     DndDirective,
     AllComponent,
     TheImageComponent,
-    FooterComponent
+    FooterComponent,
+
   ],
   imports: [
     BrowserModule,

@@ -3,7 +3,7 @@
   <h2 class="header-end">KATEGÓRIE</h2>
   <div id="firstMan" class="categories">
     <div *ngFor="let gallery of galleries"  class="category">
-      <app-the-image [gallery]="gallery"></app-the-image>
+      <app-the-image (deleteGalleryName)="deleteGallery($event)" [gallery]="gallery"></app-the-image>
     </div>
 
       <div (click)="openAddFileDialog()" class="newCategory">

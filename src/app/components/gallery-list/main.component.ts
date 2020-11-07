@@ -34,7 +34,7 @@ export class MainComponent implements OnInit {
     dialogConfig.width = '35em';
     const dialogRef = this.dialog.open(MatDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(value => {
-      if (value === undefined){
+      if (value === 'delete'){
         return;
       }else {
         this.addHttpCategory(value);
@@ -54,16 +54,25 @@ export class MainComponent implements OnInit {
 
     this.galleryService.addGallery(nameOfCategory)
       .then(data => {
-        if (data instanceof HttpErrorResponse){
+        if (data.status === 409){
           this.toastr.error('Zadajte iny nazov galerie');
+          return;
         }
-        else{
+        else if (data.status === 400){
+          return;
+        }
+        else if (data.path !== undefined) {
           this.galleries.push(newGallery);
         }
     })
       .catch(err => {
         console.log(err);
       });
+  }
+  deleteGallery(name){
+    this.galleries = this.galleries.filter(gallery => {
+      return gallery.name !== name;
+    });
   }
 }
 

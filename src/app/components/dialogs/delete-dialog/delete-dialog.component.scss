@@ -1,0 +1,28 @@
+@import "../../../styles/shared/variables";
+h1{
+  color: $color-gray-name;
+  font-size: 1.5em;
+  font-weight: 500;
+  margin-bottom: 25px;
+}
+
+.buttons{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button{
+
+  padding: 10px 25px;
+  margin: 5px;
+  border-radius: 4px;
+  border: none;
+  color: white;
+  display: flex;
+}
+.red{
+  background: red;
+}
+.green{
+  background: gray;
+}
