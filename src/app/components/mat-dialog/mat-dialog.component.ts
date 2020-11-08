@@ -80,16 +80,11 @@ export class MatDialogComponent{
       this.dialogRef.close();
       return;
     }
-    // tslint:disable-next-line:prefer-for-of
-    for (let i = 0; i < this.url.length; i++){
-      // @ts-ignore
-      this.files = document.getElementById('fileDropRef').files;
-
       // tslint:disable-next-line:prefer-for-of
       for (let j = 0;  j < this.finalFiles.length; j++){
           this.galleryService.addImage(this.finalFiles[j], this.data);
       }
-    }
+    // }
     this.dialogRef.close(this.finalFiles);
   }
 

@@ -103,9 +103,11 @@ export class ImageListComponent implements OnInit, AfterViewChecked {
                 fullpath: this.category + '/' + jpegToJpg,
               };
               this.photos.push(image);
-              const firstImage = document.getElementById('0');
-              this.url = firstImage.getAttribute('src');
-              this.dataService.changeHeaderImg(firstImage.getAttribute('src'));
+              if (document.getElementById('0') != null) {
+                const firstImage = document.getElementById('0');
+                this.url = firstImage.getAttribute('src');
+                this.dataService.changeHeaderImg(firstImage.getAttribute('src'));
+              }
             }
           }, 2000);
 
