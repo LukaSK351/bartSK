@@ -40,8 +40,6 @@ export class AllComponent implements OnInit, AfterContentInit, AfterViewChecked 
   }
 
   onChageneSrc(src: string){
-    this.cdRef.detectChanges();
-
     if (src === this.src){
       return;
     }else{
@@ -50,7 +48,7 @@ export class AllComponent implements OnInit, AfterContentInit, AfterViewChecked 
       }
 
       this.src = src;
-      setTimeout(function () {
+      setTimeout( () =>  {
         document.getElementById('header').style.backgroundImage = 'url(' + src;
       }, 150);
   }

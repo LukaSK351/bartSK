@@ -34,9 +34,9 @@
 }
 
 @mixin category{
-  width: 15em;
+  //width: 15em;
   height: 12em;
-  margin: 17px 25px 10px 0;
+  flex-grow: 2;
   transition: 0.3s;
   cursor: pointer;
 }
@@ -52,10 +52,9 @@
 
 }
 @mixin allCategories(){
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 17px;
 }
 
 @mixin add-gal-img-plus(){

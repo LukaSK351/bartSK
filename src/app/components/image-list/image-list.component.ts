@@ -136,7 +136,7 @@ export class ImageListComponent implements OnInit, AfterViewChecked {
   }
   nextImage(){
     const expandImg = document.getElementById('expandedImg');
-    let nextElementId = parseInt(expandImg.getAttribute('alt'), 10) + 1;
+    const nextElementId = parseInt(expandImg.getAttribute('alt'), 10) + 1;
     const nextImage = document.getElementById(nextElementId.toString());
     if (nextImage == null){
       return;
@@ -147,7 +147,7 @@ export class ImageListComponent implements OnInit, AfterViewChecked {
   }
   previousImage(){
     const expandImg = document.getElementById('expandedImg');
-    let previousElementId = parseInt(expandImg.getAttribute('alt'), 10) - 1;
+    const previousElementId = parseInt(expandImg.getAttribute('alt'), 10) - 1;
     const previousImage = document.getElementById(previousElementId.toString());
     if (previousImage == null){
       return;
